@@ -1,0 +1,20 @@
+import 'package:flutter/material.dart';
+
+const CLOCK_ICON = Icons.lock;
+const SEND_ICON = Icons.send;
+const ATTACK_FILE_ICON = Icons.attach_file;
+const MIC_ICON = Icons.mic;
+const PHONE_ICON = Icons.phone;
+const VIDEO_CAM_ICON = Icons.videocam;
+const SEARCH_ICON = Icons.search;
+const CLEAN_ICON = Icons.cleaning_services_rounded;
+const DELETE_ICON = Icons.delete;
+const EDIT_ICON = Icons.edit;
+const ADD_PHOTO_ICON = Icons.add_a_photo;
+const SIGN_OUT_ICON = Icons.logout;
+const GROUP_ICON = Icons.people;
+const SETTING_ICON = Icons.settings;
+const LIGHT_MODE_ICON = Icons.light_mode;
+const DARK_MODE_ICON = Icons.dark_mode;
+const ADD_ICON = Icons.add;
+const SORT_ICON = Icons.sort;

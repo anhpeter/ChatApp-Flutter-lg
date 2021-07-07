@@ -20,13 +20,15 @@ class chatExcerptWidget extends StatelessWidget {
                   style: TextStyle(color: Colors.white)),
               backgroundColor: Colors.grey,
             )
-          : Icon(Icons.check, color: Theme.of(context).primaryColor),
-      subtitle: Text(item.lastMessage),
+          : Icon(Icons.check, color: Theme.of(context).textTheme.subtitle1!.color),
+      subtitle: Text(
+        item.lastMessage,
+      ),
       leading: CircleAvatar(
         backgroundImage: NetworkImage(friend.avatarUrl),
       ),
       onTap: () {
-        Get.toNamed(ChatScreen.routeNamed,arguments: [friend.id]);
+        Get.toNamed(ChatScreen.routeNamed, arguments: [friend.id]);
       },
     );
   }

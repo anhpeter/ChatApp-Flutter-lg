@@ -1,5 +1,7 @@
 import 'package:chat_app/common/Helper.dart';
 import 'package:chat_app/constants/me.dart';
+import 'package:chat_app/constants/my_icon.dart';
+import 'package:chat_app/controllers/app_controller.dart';
 import 'package:chat_app/screens/setting/setting_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,16 +20,17 @@ class _DrawerItemModel {
 
 class MainDrawerWidget extends StatelessWidget {
   String avatarUrl = myAvatar;
+  AppController appController = Get.find();
 
   List<_DrawerItemModel> drawerItemList = [
     _DrawerItemModel(
         title: "New Group",
-        icon: Icons.people,
+        icon: GROUP_ICON,
         routeNamed: "/new-group",
         onPressHandler: () {}),
     _DrawerItemModel(
         title: "Setting",
-        icon: Icons.settings,
+        icon: SETTING_ICON,
         routeNamed: "/settings",
         onPressHandler: () {
           Get.back();
@@ -54,9 +57,7 @@ class MainDrawerWidget extends StatelessWidget {
     return Container(
       height: 150,
       child: DrawerHeader(
-        decoration: BoxDecoration(
-          color: Colors.blue,
-        ),
+        decoration: BoxDecoration(),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -65,9 +66,11 @@ class MainDrawerWidget extends StatelessWidget {
               backgroundImage: NetworkImage(avatarUrl),
             ),
             IconButton(
-                onPressed: () =>
-                    Helper.showSnackbar(context, "Change theme..."),
-                icon: Icon(Icons.light_mode))
+              onPressed: () => appController.toggleTheme(),
+              icon: Icon(appController.themeMode.value == ThemeMode.light
+                  ? DARK_MODE_ICON
+                  : LIGHT_MODE_ICON),
+            )
           ],
         ),
       ),

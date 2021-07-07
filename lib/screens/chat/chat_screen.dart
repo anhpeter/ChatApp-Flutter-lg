@@ -4,6 +4,7 @@ import 'package:chat_app/dummy/dummy_users.dart';
 import 'package:chat_app/models/chat_in_list.dart';
 import 'package:chat_app/screens/chat/widgets/chat_bar_widget.dart';
 import 'package:chat_app/screens/chat/widgets/chat_popup_menu_widget.dart';
+import 'package:chat_app/screens/chat/widgets/message_list_widget.dart';
 import 'package:chat_app/widgets/main_drawer_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -24,8 +25,10 @@ class ChatScreen extends StatelessWidget {
           leading: CircleAvatar(
             backgroundImage: NetworkImage(friend.avatarUrl),
           ),
-          title: Text(friend.username),
-          subtitle: Text("Last seen recently"),
+          title: Text(friend.username,
+              style: Theme.of(context).primaryTextTheme.headline6),
+          subtitle: Text("Last seen recently",
+              style: Theme.of(context).primaryTextTheme.subtitle2),
         ),
         actions: [ChatPopupMenuWidget()],
       ),
@@ -36,7 +39,7 @@ class ChatScreen extends StatelessWidget {
           children: [
             Expanded(
               child: Container(
-                color: Colors.red,
+                child: MessageListWidget(),
               ),
             ),
             ChatBarWidget(),

@@ -1,3 +1,4 @@
+import 'package:chat_app/constants/my_icon.dart';
 import 'package:chat_app/controllers/chat_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -13,10 +14,8 @@ class ChatBarWidget extends StatefulWidget {
 class _ChatBarWidgetState extends State {
   ChatController chatController = Get.find();
 
-
   @override
   Widget build(BuildContext context) {
-    print("chat build");
     return Row(
       children: [
         buildChatMsgBar(context),
@@ -28,15 +27,23 @@ class _ChatBarWidgetState extends State {
   buildChatMsgBar(context) {
     return Expanded(
       child: Container(
-        padding: EdgeInsets.all(16).copyWith(bottom: 0),
+        padding: EdgeInsets.all(5),
         child: Column(
           children: [
-            TextField(
-              onChanged: (value){
-                setState(() { });
-              },
-              controller: chatController.msgController.value,
-              decoration: InputDecoration(hintText: "Type..."),
+            Container(
+              child: TextField(
+                maxLines: null,
+                onChanged: (value) {
+                  setState(() {});
+                },
+                controller: chatController.msgController.value,
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.symmetric(
+                      vertical: 5.0, horizontal: 5.0),
+                  hintText: "Type...",
+                  border: OutlineInputBorder(),
+                ),
+              ),
             )
           ],
         ),
@@ -52,7 +59,7 @@ class _ChatBarWidgetState extends State {
               IconButton(
                 onPressed: () {},
                 icon: Icon(
-                  Icons.send,
+                  SEND_ICON,
                   color: Theme.of(context).primaryColor,
                 ),
               )
@@ -61,13 +68,13 @@ class _ChatBarWidgetState extends State {
               IconButton(
                 onPressed: () {},
                 icon: Icon(
-                  Icons.attach_file,
+                  ATTACK_FILE_ICON,
                 ),
               ),
               IconButton(
                 onPressed: () {},
                 icon: Icon(
-                  Icons.mic,
+                  MIC_ICON,
                 ),
               ),
             ],

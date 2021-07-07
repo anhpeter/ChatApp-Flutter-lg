@@ -1,3 +1,4 @@
+import 'package:chat_app/constants/my_icon.dart';
 import 'package:flutter/material.dart';
 
 class ChatPopupMenuWidget extends StatelessWidget {
@@ -11,31 +12,31 @@ class ChatPopupMenuWidget extends StatelessWidget {
           PopupMenuItem(
             child: ListTile(
               title: Text("Call"),
-              leading: Icon(Icons.phone),
+              leading: Icon(PHONE_ICON),
             ),
           ),
           PopupMenuItem(
             child: ListTile(
               title: Text("Video call"),
-              leading: Icon(Icons.videocam),
+              leading: Icon(VIDEO_CAM_ICON),
             ),
           ),
           PopupMenuItem(
             child: ListTile(
               title: Text("Search"),
-              leading: Icon(Icons.search),
+              leading: Icon(SEARCH_ICON),
             ),
           ),
           PopupMenuItem(
             child: ListTile(
               title: Text("Clear history"),
-              leading: Icon(Icons.cleaning_services_rounded),
+              leading: Icon(CLEAN_ICON),
             ),
           ),
           PopupMenuItem(
             child: ListTile(
               title: Text("Clear history"),
-              leading: Icon(Icons.delete),
+              leading: Icon(DELETE_ICON),
             ),
           ),
         ];

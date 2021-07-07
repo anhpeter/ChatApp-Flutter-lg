@@ -1,3 +1,4 @@
+import 'package:chat_app/constants/my_icon.dart';
 import 'package:flutter/material.dart';
 
 class SettingPopupMenuWidget extends StatelessWidget {
@@ -11,19 +12,19 @@ class SettingPopupMenuWidget extends StatelessWidget {
           PopupMenuItem(
             child: ListTile(
               title: Text("Edit name"),
-              leading: Icon(Icons.edit),
+              leading: Icon(EDIT_ICON),
             ),
           ),
           PopupMenuItem(
             child: ListTile(
               title: Text("Set new photo"),
-              leading: Icon(Icons.add_a_photo),
+              leading: Icon(ADD_PHOTO_ICON),
             ),
           ),
           PopupMenuItem(
             child: ListTile(
               title: Text("Sign out"),
-              leading: Icon(Icons.logout),
+              leading: Icon(SIGN_OUT_ICON),
             ),
           ),
         ];
