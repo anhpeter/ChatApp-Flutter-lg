@@ -1,3 +1,4 @@
+import 'package:chat_app/constants/controllers.dart';
 import 'package:chat_app/models/message.dart';
 import 'package:chat_app/screens/chat/widgets/message_wrapper_widget.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,10 @@ class MessageWidget extends StatelessWidget {
             isMe: isMe,
             child: Text(
               message.text,
-              style: TextStyle(color: isMe ? Theme.of(context).primaryTextTheme.subtitle1!.color : Colors.black),
+              style: TextStyle(
+                  color: isMe
+                      ? Theme.of(context).primaryTextTheme.subtitle1!.color
+                      : Colors.black),
             ),
           ),
         )

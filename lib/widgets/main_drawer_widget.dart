@@ -9,36 +9,28 @@ import 'package:chat_app/widgets/online_user_list_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class _DrawerItemModel {
-  final IconData icon;
-  final String title;
-  final String routeNamed;
-  final VoidCallback? onPressHandler;
-  const _DrawerItemModel(
-      {required this.title,
-      required this.icon,
-      required this.routeNamed,
-      this.onPressHandler});
-}
-
 class MainDrawerWidget extends StatelessWidget {
   String avatarUrl = myAvatar;
   AppController appController = Get.find();
 
-  List<_DrawerItemModel> drawerItemList = [
-    _DrawerItemModel(
-        title: "New Group",
-        icon: GROUP_ICON,
-        routeNamed: "/new-group",
-        onPressHandler: () {}),
-    _DrawerItemModel(
-        title: "Setting",
-        icon: SETTING_ICON,
-        routeNamed: "/settings",
-        onPressHandler: () {
-          Get.back();
-          Get.toNamed(SettingScreen.routeNamed);
-        }),
+  var drawerItemList = [
+    {
+      'title': "New Group",
+      'icon': GROUP_ICON,
+      'routeNamed': "/new-group",
+    },
+    {
+      'title': "Setting",
+      'icon': SETTING_ICON,
+      'routeNamed': SettingScreen.routeNamed,
+    },
+    {
+      'title': "Sign out",
+      'icon': SIGN_OUT_ICON,
+      'onPressHandler': () {
+        authController.signOut();
+      },
+    },
   ];
   MainDrawerWidget({Key? key}) : super(key: key);
 
@@ -85,12 +77,16 @@ class MainDrawerWidget extends StatelessWidget {
   }
 
   List<Widget> buildDrawerBody(context) {
-    return drawerItemList.map((_DrawerItemModel item) {
+    return drawerItemList.map((item) {
       return ListTile(
-        title: Text(item.title),
-        leading: Icon(item.icon),
+        title: Text(item['title'] as String),
+        leading: Icon(item['icon'] as IconData),
         onTap: () {
-          item.onPressHandler!();
+          if (item['onPressHandler'] == null) {
+            Get.toNamed(item['routeNamed'] as String);
+          } else {
+            (item['onPressHandler'] as VoidCallback)();
+          }
         },
       );
     }).toList();

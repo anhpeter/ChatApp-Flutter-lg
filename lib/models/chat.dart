@@ -22,23 +22,17 @@ class Chat {
 
   factory Chat.fromJson(Map<String, dynamic> json) {
     List<User> members = [];
-    try {
-      if (json[MEMBERS] != null) {
-        json[MEMBERS].forEach((item) {
-          print(item);
-          members.add(User.fromJson(item));
-        });
-      }
-    } catch (e) {
-      print(e.toString());
-      print('err ne');
+    if (json[MEMBERS] != null) {
+      json[MEMBERS].forEach((item) {
+        members.add(User.fromJson(item));
+      });
     }
 
     List<Message> messages = [];
     if (json[MESSAGES] != null) {
-        //json[MESSAGES].forEach((item) {
-          //messages.add(Message.fromJson(item));
-        //});
+      json[MESSAGES].forEach((item) {
+        messages.add(Message.fromJson(item));
+      });
     }
     return Chat(
       id: json['_id'],

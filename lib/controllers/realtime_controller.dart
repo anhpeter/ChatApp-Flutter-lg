@@ -1,3 +1,4 @@
+import 'package:chat_app/constants/controllers.dart';
 import 'package:chat_app/constants/socket_event.dart';
 import 'package:chat_app/https/MySocket.dart';
 import 'package:chat_app/models/user.dart';
@@ -19,10 +20,12 @@ class RealtimeController extends GetxController {
 
   void handleUserOnline() {
     mySocket.socket.on(SocketEventNames.onlineUser, (data) {
-      var list = data.map<User>((item) {
-        return User.fromJson(item);
-      });
-      onlineUserList.value = list.toList();
+      if (authController.user.value != null) {
+        var list = data.map<User>((item) {
+          return User.fromJson(item);
+        });
+        onlineUserList.value = list.toList();
+      }
     });
   }
 }

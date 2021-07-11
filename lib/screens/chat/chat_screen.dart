@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ChatScreen extends StatelessWidget {
-  var chatController = Get.put(ChatController());
+  final chatController = Get.put(ChatController());
   static const String routeNamed = "/chat";
   ChatScreen({Key? key}) : super(key: key);
 
@@ -60,22 +60,18 @@ class ChatScreen extends StatelessWidget {
           }),
           actions: [ChatPopupMenuWidget()],
         ),
-        body: GestureDetector(
-          behavior: HitTestBehavior.translucent,
-          onTap: () => FocusScope.of(context).unfocus(),
-          child: Column(
-            children: [
-              // message list
-              Expanded(
-                child: Container(
-                  child: MessageListWidget(),
-                ),
+        body: Column(
+          children: [
+            // message list
+            Expanded(
+              child: Container(
+                child: MessageListWidget(),
               ),
+            ),
 
-              // chat bar
-              ChatBarWidget(),
-            ],
-          ),
+            // chat bar
+            ChatBarWidget(),
+          ],
         ),
       ),
     );

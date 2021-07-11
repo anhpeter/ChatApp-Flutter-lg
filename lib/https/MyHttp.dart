@@ -18,7 +18,6 @@ class MyHttp {
           'ids': memberIds,
         }));
     if (response.statusCode == 200) {
-      print('\n\n${response.body}\n');
       var json = jsonDecode(response.body);
       chat = Chat.fromJson(json['payload']);
     } else {

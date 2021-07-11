@@ -5,4 +5,8 @@ class Helper {
     ScaffoldMessenger.of(context)
         .showSnackBar(SnackBar(content: Text(content)));
   }
+
+  static toDateTime(value) {
+    return value != null ? DateTime(value) : null;
+  }
 }

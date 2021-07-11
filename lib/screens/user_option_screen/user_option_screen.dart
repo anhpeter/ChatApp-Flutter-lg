@@ -31,36 +31,36 @@ class _UserOptionScreenState extends State {
       appBar: AppBar(
         title: Text("User Option"),
       ),
-      body: Center(
-        child: FutureBuilder<List<User>>(
-          future: futureUserList,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return Column(
-                children:
-                    buildUserList(snapshot.data ?? []),
-              );
-            } else if (snapshot.hasError) {
-              return Center(child: Text('Something went wrong!'));
-            }
-            return CircularProgressIndicator();
-          },
-        ),
+      body: FutureBuilder<List<User>>(
+        future: futureUserList,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return SingleChildScrollView(
+              child: buildUserList(snapshot.data ?? []),
+            );
+          } else if (snapshot.hasError) {
+            print(snapshot.error);
+            return Center(child: Text('Something went wrong!'));
+          }
+          return CircularProgressIndicator();
+        },
       ),
     );
   }
 
   buildUserList(List<User> list) {
-    return list.map((User item) {
-      return ListTile(
-        leading: MyCircleAvatarWidget(
-          imageUrl: item.avatarUrl,
-        ),
-        title: Text(item.username),
-        onTap: () {
-          authController.signInWithUser(item);
-        },
-      );
-    }).toList();
+    return Column(
+      children: list.map((User item) {
+        return ListTile(
+          leading: MyCircleAvatarWidget(
+            imageUrl: item.avatarUrl,
+          ),
+          title: Text(item.username),
+          onTap: () {
+            authController.signInWithUser(item);
+          },
+        );
+      }).toList(),
+    );
   }
 }
