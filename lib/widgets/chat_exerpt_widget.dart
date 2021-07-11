@@ -28,7 +28,10 @@ class chatExcerptWidget extends StatelessWidget {
         backgroundImage: NetworkImage(friend.avatarUrl),
       ),
       onTap: () {
-        Get.toNamed(ChatScreen.routeNamed, arguments: [friend.id]);
+        Get.toNamed(ChatScreen.routeNamed, arguments: {
+          'type': 'chat',
+          'id': item.id,
+        });
       },
     );
   }

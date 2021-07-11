@@ -60,7 +60,6 @@ class _ChatBarWidgetState extends State {
                 onPressed: () {},
                 icon: Icon(
                   SEND_ICON,
-                  color: Theme.of(context).primaryColor,
                 ),
               )
             ]

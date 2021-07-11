@@ -1,8 +1,11 @@
 import 'package:chat_app/common/Helper.dart';
+import 'package:chat_app/constants/controllers.dart';
 import 'package:chat_app/constants/me.dart';
 import 'package:chat_app/constants/my_icon.dart';
 import 'package:chat_app/controllers/app_controller.dart';
 import 'package:chat_app/screens/setting/setting_screen.dart';
+import 'package:chat_app/widgets/my_circle_avatar_widget.dart';
+import 'package:chat_app/widgets/online_user_list_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -42,12 +45,16 @@ class MainDrawerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: ListView(
+      child: Column(
         // Important: Remove any padding from the ListView.
-        padding: EdgeInsets.zero,
         children: <Widget>[
           buildDrawerHeader(context),
           ...buildDrawerBody(context),
+          Divider(),
+          SizedBox(height: 2),
+          Expanded(
+            child: OnlineUserListWidget(),
+          ),
         ],
       ),
     );
@@ -61,15 +68,15 @@ class MainDrawerWidget extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            CircleAvatar(
-              radius: 25,
-              backgroundImage: NetworkImage(avatarUrl),
-            ),
-            IconButton(
-              onPressed: () => appController.toggleTheme(),
-              icon: Icon(appController.themeMode.value == ThemeMode.light
-                  ? DARK_MODE_ICON
-                  : LIGHT_MODE_ICON),
+            Obx(() => MyCircleAvatarWidget(
+                imageUrl: authController.user.value!.avatarUrl)),
+            Obx(
+              () => IconButton(
+                onPressed: () => appController.toggleTheme(),
+                icon: Icon(appController.themeMode.value == ThemeMode.light
+                    ? DARK_MODE_ICON
+                    : LIGHT_MODE_ICON),
+              ),
             )
           ],
         ),

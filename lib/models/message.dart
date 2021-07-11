@@ -1,23 +1,21 @@
 class Message {
-  String? id;
-  String? messageReplyId;
+  String id;
   String chatId;
   String senderId;
-  String receiverId;
   String text;
   String messageType;
-  String? mediaUrl;
-  DateTime timestamp;
+  DateTime? timestamp;
+  String? attachUrl;
+  String? messageReplyId;
 
   Message({
     required this.id,
-    this.messageReplyId,
     required this.chatId,
     required this.senderId,
-    required this.receiverId,
     required this.text,
     required this.messageType,
-    this.mediaUrl,
-    required this.timestamp,
+    this.attachUrl,
+    this.messageReplyId,
+    this.timestamp,
   });
 }

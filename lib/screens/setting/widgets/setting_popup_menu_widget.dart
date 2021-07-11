@@ -1,5 +1,9 @@
+import 'package:chat_app/constants/controllers.dart';
 import 'package:chat_app/constants/my_icon.dart';
+import 'package:chat_app/constants/socket_event.dart';
+import 'package:chat_app/https/MySocket.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SettingPopupMenuWidget extends StatelessWidget {
   const SettingPopupMenuWidget({Key? key}) : super(key: key);
@@ -25,6 +29,7 @@ class SettingPopupMenuWidget extends StatelessWidget {
             child: ListTile(
               title: Text("Sign out"),
               leading: Icon(SIGN_OUT_ICON),
+              onTap: () => authController.signOut(),
             ),
           ),
         ];
