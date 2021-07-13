@@ -9,12 +9,9 @@ class ChatTextFieldWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      //onTap: () {
-        //chatController.scrollToBottom();
-      //},
       maxLines: null,
       onChanged: (value) {},
-      controller: chatController.msgController.value,
+      controller: chatController.msgController,
       decoration: InputDecoration(
         contentPadding:
             const EdgeInsets.symmetric(vertical: 5.0, horizontal: 5.0),

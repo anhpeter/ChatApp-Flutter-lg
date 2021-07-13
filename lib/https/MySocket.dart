@@ -1,6 +1,7 @@
 import 'dart:async';
 
-import 'package:chat_app/constants/socket_event.dart';
+import 'package:chat_app/constants/config.dart';
+import 'package:chat_app/constants/socket_event_names.dart';
 import 'package:chat_app/models/user.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
@@ -20,7 +21,7 @@ class MySocket {
 
   void connectSocketIo() {
     socket = IO.io(
-      'http://10.0.2.2:3000',
+      BACKEND_DOMAIN,
       <String, dynamic>{
         'transports': ['websocket'],
       },
@@ -35,19 +36,16 @@ class MySocket {
     setupEvents();
   }
 
-  void setupEvents(){
-  }
+  void setupEvents() {}
 
   // events
-  void signIn(User item){
-    MySocket.getIntace()
-        .socket
-        .emit(SocketEventNames.signIn, item.toJson());
+  void signIn(User item) {
+    MySocket.getIntace().socket.emit(SocketEventNames.signIn, item.toJson());
   }
 
-  void signOut(User item){
+  void signOut(User item) {
     MySocket.getIntace()
         .socket
-        .emit(SocketEventNames.signOut, item.toJson());
+        .emit(SocketEventNames.signOut, {'user': item.toJson()});
   }
 }

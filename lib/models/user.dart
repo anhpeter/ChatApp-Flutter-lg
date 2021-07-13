@@ -16,10 +16,10 @@ class User {
 
   String id;
   String username;
-  String fullname;
-  String avatarUrl;
-  String email;
-  String phone;
+  String? fullname;
+  String? avatarUrl;
+  String? email;
+  String? phone;
   String password;
   DateTime? created;
   DateTime? modified;
@@ -28,11 +28,11 @@ class User {
   User({
     required this.id,
     required this.username,
-    required this.fullname,
-    required this.email,
-    required this.phone,
     required this.password,
-    required this.avatarUrl,
+    this.avatarUrl,
+    this.fullname,
+    this.email,
+    this.phone,
     this.created,
     this.modified,
     this.lastActive,
@@ -64,7 +64,7 @@ class User {
       AVATARURL: avatarUrl,
       CREATED: created,
       MODIFIED: modified,
-      LASTACTIVE: lastActive,
+      LASTACTIVE: lastActive?.millisecondsSinceEpoch,
     });
   }
 }

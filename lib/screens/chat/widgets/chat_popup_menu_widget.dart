@@ -1,8 +1,11 @@
 import 'package:chat_app/constants/my_icon.dart';
+import 'package:chat_app/controllers/chat_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ChatPopupMenuWidget extends StatelessWidget {
-  const ChatPopupMenuWidget({Key? key}) : super(key: key);
+  ChatPopupMenuWidget({Key? key}) : super(key: key);
+  final ChatController _chatController = Get.find();
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,6 @@
 import 'package:chat_app/constants/controllers.dart';
 import 'package:chat_app/constants/my_icon.dart';
-import 'package:chat_app/constants/socket_event.dart';
+import 'package:chat_app/constants/socket_event_names.dart';
 import 'package:chat_app/https/MySocket.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

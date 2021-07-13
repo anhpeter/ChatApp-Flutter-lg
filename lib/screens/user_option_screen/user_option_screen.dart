@@ -1,29 +1,11 @@
 import 'package:chat_app/constants/controllers.dart';
-import 'package:chat_app/controllers/auth_controller.dart';
-import 'package:chat_app/https/MyHttp.dart';
 import 'package:chat_app/models/user.dart';
-import 'package:chat_app/widgets/my_circle_avatar_widget.dart';
+import 'package:chat_app/widgets/all_user_list_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
-class UserOptionScreen extends StatefulWidget {
-  static const String routeNamed = "/user-option";
+class UserOptionScreen extends StatelessWidget {
+  static const String routeNamed = 'user-option';
   const UserOptionScreen({Key? key}) : super(key: key);
-
-  @override
-  State<StatefulWidget> createState() {
-    return _UserOptionScreenState();
-  }
-}
-
-class _UserOptionScreenState extends State {
-  late Future<List<User>> futureUserList;
-
-  @override
-  void initState() {
-    futureUserList = MyHttp.fetchAllUser();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,36 +13,11 @@ class _UserOptionScreenState extends State {
       appBar: AppBar(
         title: Text("User Option"),
       ),
-      body: FutureBuilder<List<User>>(
-        future: futureUserList,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return SingleChildScrollView(
-              child: buildUserList(snapshot.data ?? []),
-            );
-          } else if (snapshot.hasError) {
-            print(snapshot.error);
-            return Center(child: Text('Something went wrong!'));
-          }
-          return CircularProgressIndicator();
+      body: AllUserListWidget(
+        callback: (User item) {
+          authController.signInWithUser(item);
         },
       ),
-    );
-  }
-
-  buildUserList(List<User> list) {
-    return Column(
-      children: list.map((User item) {
-        return ListTile(
-          leading: MyCircleAvatarWidget(
-            imageUrl: item.avatarUrl,
-          ),
-          title: Text(item.username),
-          onTap: () {
-            authController.signInWithUser(item);
-          },
-        );
-      }).toList(),
     );
   }
 }

@@ -2,7 +2,9 @@
 import 'package:chat_app/bindings/initial_binding.dart';
 import 'package:chat_app/constants/config.dart';
 import 'package:chat_app/screens/chat/chat_screen.dart';
+import 'package:chat_app/screens/counter_screen/counter_screen.dart';
 import 'package:chat_app/screens/global_search/global_search_screen.dart';
+import 'package:chat_app/screens/home/binding/home_binding.dart';
 import 'package:chat_app/screens/home/home_screen.dart';
 import 'package:chat_app/screens/new_message/new_message.screen.dart';
 import 'package:chat_app/screens/setting/setting_screen.dart';
@@ -34,6 +36,7 @@ class MyApp extends StatelessWidget {
             GetPage(
               name: HomeScreen.routeNamed,
               page: () => HomeScreen(),
+              binding: HomeBinding(),
             ),
             GetPage(
                 name: SettingScreen.routeNamed, page: () => SettingScreen()),
@@ -47,6 +50,10 @@ class MyApp extends StatelessWidget {
             GetPage(
               name: UserOptionScreen.routeNamed,
               page: () => UserOptionScreen(),
+            ),
+            GetPage(
+              name: CounterScreen.routeNamed,
+              page: () => CounterScreen(),
             ),
           ],
         ));

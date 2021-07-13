@@ -10,22 +10,22 @@ class Message {
   static const ATTACHURL = 'attach_url';
   static const MESSAGEREPLYID = 'message_reply_id';
 
-  String id;
+  String? id;
   User sender;
   String text;
   String messageType;
-  DateTime? timestamp;
+  DateTime timestamp;
   String? attachUrl;
   String? messageReplyId;
 
   Message({
-    required this.id,
+    this.id,
     required this.sender,
     required this.text,
     required this.messageType,
+    required this.timestamp,
     this.attachUrl,
     this.messageReplyId,
-    this.timestamp,
   });
 
   factory Message.fromJson(Map<String, dynamic> json) {
@@ -36,7 +36,19 @@ class Message {
       text: json[TEXT],
       attachUrl: json[ATTACHURL],
       messageReplyId: json[MESSAGEREPLYID],
-      //   timestamp: Helper.toDateTime(json[TIMESTAMP]),
+      timestamp: Helper.toDateTime(json[TIMESTAMP]),
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      ID: id,
+      SENDER: sender.toJson(),
+      TEXT: text,
+      MESSAGETYPE: messageType,
+      TIMESTAMP: timestamp.millisecondsSinceEpoch.toString(),
+      ATTACHURL: attachUrl,
+      MESSAGEREPLYID: messageReplyId,
+    };
   }
 }

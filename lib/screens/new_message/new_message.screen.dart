@@ -1,4 +1,7 @@
 import 'package:chat_app/constants/my_icon.dart';
+import 'package:chat_app/models/user.dart';
+import 'package:chat_app/screens/chat/chat_screen.dart';
+import 'package:chat_app/widgets/all_user_list_widget.dart';
 import 'package:chat_app/widgets/block_title_widget.dart';
 import 'package:chat_app/widgets/search_bar_widget.dart';
 import 'package:flutter/material.dart';
@@ -22,28 +25,39 @@ class _NewMessageScreenState extends State {
         TextStyle(color: Theme.of(context).primaryTextTheme.subtitle1!.color);
     return Scaffold(
       appBar: buildAppBar(),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            buildNewMessageOptionBlock(),
-            const BlockTitleWidget(
-              title: "Sorted by name",
-            )
-          ],
-        ),
+      body: Column(
+        children: [
+          buildNewMessageOptionBlock(),
+          const BlockTitleWidget(
+            title: "Sorted by name",
+          ),
+          Expanded(
+            child: AllUserListWidget(
+              callback: (User item) {
+                Get.toNamed(ChatScreen.routeNamed, arguments: {
+                  'type': 'user',
+                  'id': item.id,
+                });
+              },
+            ),
+          )
+        ],
       ),
     );
   }
 
   buildAppBar() {
     return AppBar(
-      leading: BackButton(onPressed: (){
-        if (isSearchMode){
+      leading: BackButton(
+        onPressed: () {
+          if (isSearchMode) {
             setState(() {
               isSearchMode = false;
             });
-        }else Get.back();
-      },),
+          } else
+            Get.back();
+        },
+      ),
       title: !isSearchMode ? Text("New message") : SearchBarWidget(),
       actions: !isSearchMode
           ? [

@@ -7,6 +7,6 @@ class Helper {
   }
 
   static toDateTime(value) {
-    return value != null ? DateTime(value) : null;
+    return value != null ? DateTime.fromMillisecondsSinceEpoch(value) : null;
   }
 }

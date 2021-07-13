@@ -14,14 +14,14 @@ class OnlineUserListWidget extends StatefulWidget {
 }
 
 class _OnlineUserListWidgetState extends State<OnlineUserListWidget> {
-  RealtimeController realtimeController = Get.find();
+  RealtimeController _realtimeController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Obx(
       () {
-        var onlineList = [...realtimeController.onlineUserList.value];
-        onlineList
-            .removeWhere((item) => item.id == authController.user.value!.id);
+        var onlineList = _realtimeController.onlineUserList
+            .where((item) => item.id != authController.user.value!.id)
+            .toList();
         return Column(
           children: [
             buildTitle(onlineList.length),

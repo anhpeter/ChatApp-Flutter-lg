@@ -1,6 +1,7 @@
 import 'package:chat_app/constants/my_icon.dart';
 import 'package:chat_app/controllers/chat_controller.dart';
 import 'package:chat_app/screens/chat/widgets/chat_text_field_widget.dart';
+import 'package:chat_app/screens/chat/widgets/typing_list_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -20,12 +21,12 @@ class ChatBarWidget extends StatelessWidget {
   buildChatMsgBar(context) {
     return Expanded(
       child: Container(
+        color: Colors.transparent,
         padding: EdgeInsets.all(5),
         child: Column(
           children: [
-            Container(
-              child: ChatTextFieldWidget(),
-            )
+            TypinglistWidget(),
+            ChatTextFieldWidget(),
           ],
         ),
       ),
@@ -40,7 +41,7 @@ class ChatBarWidget extends StatelessWidget {
             ? [
                 IconButton(
                   onPressed: () {
-                    chatController.sendMessage();
+                    chatController.onSendMessgaeHandler();
                   },
                   icon: Icon(
                     SEND_ICON,

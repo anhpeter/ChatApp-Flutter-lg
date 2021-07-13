@@ -36,19 +36,23 @@ class MainDrawerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      child: Column(
-        // Important: Remove any padding from the ListView.
-        children: <Widget>[
-          buildDrawerHeader(context),
-          ...buildDrawerBody(context),
-          Divider(),
-          SizedBox(height: 2),
-          Expanded(
-            child: OnlineUserListWidget(),
-          ),
-        ],
-      ),
+    return Obx(
+      () => authController.isLogged
+          ? Drawer(
+              child: Column(
+                // Important: Remove any padding from the ListView.
+                children: <Widget>[
+                  buildDrawerHeader(context),
+                  ...buildDrawerBody(context),
+                  Divider(),
+                  SizedBox(height: 2),
+                  Expanded(
+                    child: OnlineUserListWidget(),
+                  ),
+                ],
+              ),
+            )
+          : SizedBox.shrink(),
     );
   }
 
@@ -57,21 +61,21 @@ class MainDrawerWidget extends StatelessWidget {
       height: 150,
       child: DrawerHeader(
         decoration: BoxDecoration(),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Obx(() => MyCircleAvatarWidget(
-                imageUrl: authController.user.value!.avatarUrl)),
-            Obx(
-              () => IconButton(
-                onPressed: () => appController.toggleTheme(),
-                icon: Icon(appController.themeMode.value == ThemeMode.light
-                    ? DARK_MODE_ICON
-                    : LIGHT_MODE_ICON),
-              ),
-            )
-          ],
-        ),
+        child: Obx(() => authController.isLogged
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  MyCircleAvatarWidget(
+                      imageUrl: authController.user.value!.avatarUrl),
+                  IconButton(
+                    onPressed: () => appController.toggleTheme(),
+                    icon: Icon(appController.themeMode.value == ThemeMode.light
+                        ? DARK_MODE_ICON
+                        : LIGHT_MODE_ICON),
+                  )
+                ],
+              )
+            : Container()),
       ),
     );
   }

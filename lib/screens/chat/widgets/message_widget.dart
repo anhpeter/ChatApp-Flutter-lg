@@ -1,5 +1,6 @@
 import 'package:chat_app/constants/controllers.dart';
 import 'package:chat_app/models/message.dart';
+import 'package:chat_app/screens/chat/widgets/message_time_widget.dart';
 import 'package:chat_app/screens/chat/widgets/message_wrapper_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -14,16 +15,31 @@ class MessageWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
-        Container(
-          child: MessageWrapperWidget(
-            isMe: isMe,
-            child: Text(
-              message.text,
-              style: TextStyle(
-                  color: isMe
-                      ? Theme.of(context).primaryTextTheme.subtitle1!.color
-                      : Colors.black),
-            ),
+        Flexible(
+          child: Column(
+            children: [
+              MessageWrapperWidget(
+                isMe: isMe,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      message.text,
+                      maxLines: null,
+                      style: TextStyle(
+                        color: isMe
+                            ? Theme.of(context)
+                                .primaryTextTheme
+                                .subtitle1!
+                                .color
+                            : Colors.black,
+                      ),
+                    ),
+                    MessageTimeWidget(isMe: isMe, time: message.timestamp),
+                  ],
+                ),
+              ),
+            ],
           ),
         )
       ],

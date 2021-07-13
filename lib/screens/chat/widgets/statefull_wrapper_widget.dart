@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 
 class StateFullWrapperWidget extends StatefulWidget {
   final Widget child;
-  final VoidCallback? callback;
+  final VoidCallback? onInit;
   const StateFullWrapperWidget(
-      {required this.child, required this.callback, Key? key})
+      {required this.child, required this.onInit, Key? key})
       : super(key: key);
 
   @override
@@ -14,9 +14,7 @@ class StateFullWrapperWidget extends StatefulWidget {
 class _StateFullWrapperWidgetState extends State<StateFullWrapperWidget> {
   @override
   void initState() {
-    // TODO: implement initState
-    widget.callback!();
-    print("init state");
+    if (widget.onInit != null) widget.onInit!();
     super.initState();
   }
 

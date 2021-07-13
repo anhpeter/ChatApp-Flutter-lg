@@ -1,4 +1,3 @@
-import 'package:chat_app/constants/socket_event.dart';
 import 'package:chat_app/https/MySocket.dart';
 import 'package:chat_app/models/user.dart';
 import 'package:chat_app/screens/home/home_screen.dart';
@@ -7,25 +6,27 @@ import 'package:get/get.dart';
 
 class AuthController extends GetxController {
   static AuthController intance = Get.find();
-  late Rx<User?> user;
+  Rx<User?> user = Rx<User>(null as User);
   MySocket mySocket = MySocket.getIntace();
 
   @override
-  void onReady() {
-    super.onReady();
+  void onInit() {
+    handleUserChanges();
+    super.onInit();
   }
 
-  void setDefaultScreen() {
-    if (user.value == null) {
-      Get.offAllNamed(UserOptionScreen.routeNamed);
-    } else {
-      Get.offAllNamed(HomeScreen.routeNamed);
-    }
+  void handleUserChanges() {
+    user.listen((u) {
+      if (u == null) {
+        Get.offAllNamed(UserOptionScreen.routeNamed);
+      } else {
+        Get.offAllNamed(HomeScreen.routeNamed);
+      }
+    });
   }
 
   void setUser(User? user) {
-    this.user = Rx<User?>(user);
-    setDefaultScreen();
+    this.user.value = user;
   }
 
   void signInWithUser(User? item) {
@@ -37,4 +38,6 @@ class AuthController extends GetxController {
     mySocket.signOut(user.value!);
     setUser(null);
   }
+
+  bool get isLogged => user.value != null;
 }
