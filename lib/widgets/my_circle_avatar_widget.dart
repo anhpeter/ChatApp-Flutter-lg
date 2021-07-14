@@ -12,20 +12,20 @@ class MyCircleAvatarWidget extends StatelessWidget {
         ? CircleAvatar(
             backgroundImage: NetworkImage(imageUrl!),
           )
-        : () {
-            String? titleText = username;
-            titleText = titleText != null
-                ? (titleText.length > 2
-                    ? titleText.substring(0, 2).toUpperCase()
-                    : "")
-                : "";
-            return CircleAvatar(
-              backgroundColor: Theme.of(context).primaryColor,
-              child: Text(
-                titleText,
-                style: TextStyle(color: Colors.white),
-              ),
-            );
-          }();
+        : buildUsernameAvatar(context);
+  }
+
+  buildUsernameAvatar(context) {
+    String? titleText = username;
+    titleText = titleText != null
+        ? (titleText.length > 2 ? titleText.substring(0, 2).toUpperCase() : "")
+        : "";
+    return CircleAvatar(
+      backgroundColor: Theme.of(context).primaryColor,
+      child: Text(
+        titleText,
+        style: TextStyle(color: Colors.white),
+      ),
+    );
   }
 }

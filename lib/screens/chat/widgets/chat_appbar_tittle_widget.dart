@@ -1,7 +1,7 @@
+import 'package:chat_app/common/Helper.dart';
 import 'package:chat_app/constants/controllers.dart';
 import 'package:chat_app/controllers/chat_controller.dart';
 import 'package:chat_app/models/user.dart';
-import 'package:chat_app/screens/chat/widgets/chat_popup_menu_widget.dart';
 import 'package:chat_app/widgets/error_message_widget.dart';
 import 'package:chat_app/widgets/my_circle_avatar_widget.dart';
 import 'package:flutter/material.dart';
@@ -46,15 +46,11 @@ class ChatAppBarTitleWidget extends StatelessWidget {
   }
 
   buildLastSeen(User friend) {
-    return friend.lastActive != null
-        ? Builder(
-            builder: (context) {
-              var f = DateFormat('dd/MM hh:mm');
-              var formatTime = f.format(friend.lastActive!);
-              return Text("Last seen $formatTime",
-                  style: Theme.of(context).primaryTextTheme.subtitle2);
-            },
-          )
-        : SizedBox.shrink();
+    return Builder(
+      builder: (context) {
+        return Text(Helper.toActiveTimeString(friend.lastActive),
+            style: Theme.of(context).primaryTextTheme.subtitle2);
+      },
+    );
   }
 }

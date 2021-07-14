@@ -19,10 +19,12 @@ class ChatScreen extends StatelessWidget {
     final args = Get.arguments;
     switch (args['type']) {
       case 'chat':
+        _chatController.fetchChat(type: 'by-id', value: args['id']);
         break;
       case 'user':
-        _chatController
-            .fetchChatByMemberIds([authController.user.value!.id, args['id']]);
+        _chatController.fetchChat(
+            type: 'by-member-ids',
+            value: [authController.user.value!.id, args['id']]);
         break;
       case 'group':
         break;

@@ -44,6 +44,7 @@ class _AllUserListWidgetState extends State<AllUserListWidget> {
         return ListTile(
           leading: MyCircleAvatarWidget(
             imageUrl: item.avatarUrl,
+            username: item.username
           ),
           title: Text(item.username),
           onTap: () {

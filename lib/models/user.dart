@@ -23,19 +23,19 @@ class User {
   String password;
   DateTime? created;
   DateTime? modified;
-  DateTime? lastActive;
+  DateTime lastActive;
 
   User({
     required this.id,
     required this.username,
     required this.password,
+    required this.lastActive,
     this.avatarUrl,
     this.fullname,
     this.email,
     this.phone,
     this.created,
     this.modified,
-    this.lastActive,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
@@ -64,7 +64,7 @@ class User {
       AVATARURL: avatarUrl,
       CREATED: created,
       MODIFIED: modified,
-      LASTACTIVE: lastActive?.millisecondsSinceEpoch,
+      LASTACTIVE: lastActive.millisecondsSinceEpoch,
     });
   }
 }

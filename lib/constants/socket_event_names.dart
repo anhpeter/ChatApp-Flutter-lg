@@ -8,6 +8,10 @@ class SocketEventNames {
   static const stopTyping = 'stop-typing';
   static const sendMessage = 'send-message';
   static const receiveMessage = 'receive-message';
+
+  //room
+  static const joinRoom = 'join-room';
+  static const leaveRoom = 'leave-room';
 }
     //signIn: 'sign-in',
     //signOut: 'sign-out',

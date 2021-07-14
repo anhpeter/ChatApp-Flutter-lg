@@ -35,6 +35,7 @@ class MessageWidget extends StatelessWidget {
                             : Colors.black,
                       ),
                     ),
+                    SizedBox(height: 3,),
                     MessageTimeWidget(isMe: isMe, time: message.timestamp),
                   ],
                 ),

@@ -27,7 +27,7 @@ class MyHttp {
     });
   }
 
-  static Future<Chat> fetchChatByMemberIds(List<String> memberIds) async {
+  static Future<Chat> fetchChatByMemberIds(List memberIds) async {
     Chat chat;
     var response = await http.post(
         Uri.parse(
@@ -47,10 +47,25 @@ class MyHttp {
     return chat;
   }
 
+  static Future<Chat> fetchChatById(String id) async {
+    Chat chat;
+    var queryString = Uri(queryParameters: {'id': id}).query;
+    var response = await http.get(Uri.parse(
+        '$BACKEND_DOMAIN/chat/getChatById?$queryString'));
+    if (response.statusCode == 200) {
+      var json = jsonDecode(response.body);
+      chat = Chat.fromJson(json['payload']);
+    } else {
+      throw Exception('Failed to load chat');
+    }
+    return chat;
+  }
+
   static Future<ChatInList> fetchBriefChatById(String id) async {
     ChatInList item;
     var queryString = Uri(queryParameters: {'id': id}).query;
-    var res = await http.get(Uri.parse('$BACKEND_DOMAIN/chat/getBriefItemById?$queryString'));
+    var res = await http
+        .get(Uri.parse('$BACKEND_DOMAIN/chat/getBriefItemById?$queryString'));
     if (res.statusCode == 200) {
       var json = jsonDecode(res.body);
       item = ChatInList.fromJson(json['payload']);
@@ -62,7 +77,8 @@ class MyHttp {
   // user
   static Future<List<User>> fetchAllUser() async {
     List<User> list = [];
-    var response = await http.get(Uri.parse('$BACKEND_DOMAIN/user/listUserWithParams'));
+    var response =
+        await http.get(Uri.parse('$BACKEND_DOMAIN/user/listUserWithParams'));
     if (response.statusCode == 200) {
       var jsonArr = jsonDecode(response.body);
       jsonArr.forEach((itemJsonObj) {

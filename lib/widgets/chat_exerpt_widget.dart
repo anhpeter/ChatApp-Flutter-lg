@@ -1,7 +1,5 @@
 import 'package:chat_app/constants/controllers.dart';
-import 'package:chat_app/constants/me.dart';
 import 'package:chat_app/models/chat_in_list.dart';
-import 'package:chat_app/models/chat_user.dart';
 import 'package:chat_app/models/user.dart';
 import 'package:chat_app/screens/chat/chat_screen.dart';
 import 'package:chat_app/screens/chat/widgets/message_time_widget.dart';
@@ -50,8 +48,8 @@ class ChatExcerptWidget extends StatelessWidget {
       leading: MyCircleAvatarWidget(imageUrl: friend.avatarUrl, username: friend.username,),
       onTap: () {
         Get.toNamed(ChatScreen.routeNamed, arguments: {
-          'type': 'user',
-          'id': friend.id,
+          'type': 'chat',
+          'id': item.id,
         });
       },
     );

@@ -66,12 +66,13 @@ class MainDrawerWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   MyCircleAvatarWidget(
+                    username: authController.user.value!.username,
                       imageUrl: authController.user.value!.avatarUrl),
                   IconButton(
                     onPressed: () => appController.toggleTheme(),
-                    icon: Icon(appController.themeMode.value == ThemeMode.light
-                        ? DARK_MODE_ICON
-                        : LIGHT_MODE_ICON),
+                    icon: Icon(appController.themeMode.value == ThemeMode.dark
+                        ? LIGHT_MODE_ICON
+                        : DARK_MODE_ICON),
                   )
                 ],
               )

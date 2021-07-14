@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:chat_app/common/SocketHelper.dart';
 import 'package:chat_app/constants/controllers.dart';
 import 'package:chat_app/constants/socket_event_names.dart';
 import 'package:chat_app/controllers/chat_list_controller.dart';
@@ -62,10 +63,18 @@ class ChatController extends GetxController {
   }
 
   // fetch
-  void fetchChatByMemberIds(List<String> memberIds) async {
+  void fetchChat({type, value}) async {
     isLoading.value = true;
     try {
-      chat = Rx<Chat>(await MyHttp.fetchChatByMemberIds(memberIds));
+      switch (type) {
+        case 'by-member-ids':
+          chat = Rx<Chat>(await MyHttp.fetchChatByMemberIds(value));
+          break;
+        case 'by-id':
+          chat = Rx<Chat>(await MyHttp.fetchChatById(value));
+          break;
+      }
+      emitJoinRoom();
     } catch (err) {
       print(err.toString());
       error = Rx<String>(err.toString());
@@ -99,6 +108,18 @@ class ChatController extends GetxController {
   }
 
   // socket emitters
+  void emitJoinRoom() {
+    mySocket.socket.emit(SocketEventNames.joinRoom,
+        {'roomName': "${SocketHelper.getCurrentChatIdFormat(chat.value!.id)}"});
+  }
+
+  void emitLeaveRoom() {
+    if (chat.value != null)
+      mySocket.socket.emit(SocketEventNames.leaveRoom, {
+        'roomName': "${SocketHelper.getCurrentChatIdFormat(chat.value!.id)}"
+      });
+  }
+
   void emitSendMessage() {
     mySocket.socket.emit(SocketEventNames.sendMessage, {
       'user': authController.user.value,
@@ -108,17 +129,23 @@ class ChatController extends GetxController {
   }
 
   void emitTyping() {
-    mySocket.socket.emit(
-        SocketEventNames.typing, {'user': authController.user.value!.toJson()});
+    print("typing...");
+    mySocket.socket.emit(SocketEventNames.typing, {
+      'user': authController.user.value!.toJson(),
+      'chatId': chat.value!.id
+    });
   }
 
   void emitStopTyping() {
+    print("stop typing...");
     if (isTypingFlag) {
       if (typingTimer!.isActive) typingTimer!.cancel();
       isTypingFlag = false;
     }
-    mySocket.socket.emit(SocketEventNames.stopTyping,
-        {'user': authController.user.value!.toJson()});
+    mySocket.socket.emit(SocketEventNames.stopTyping, {
+      'user': authController.user.value!.toJson(),
+      'chatId': chat.value!.id
+    });
   }
 
   // socket listeners
@@ -193,6 +220,7 @@ class ChatController extends GetxController {
 
   @override
   void onClose() {
+    emitLeaveRoom();
     mySocket.socket.off(SocketEventNames.typing, typingSocketListener);
     mySocket.socket.off(SocketEventNames.stopTyping, stopTypingSocketListener);
     mySocket.socket

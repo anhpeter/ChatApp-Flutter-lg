@@ -1,5 +1,6 @@
 // @dart=2.9
 import 'package:chat_app/bindings/initial_binding.dart';
+import 'package:chat_app/common/themes/custom_theme.dart';
 import 'package:chat_app/constants/config.dart';
 import 'package:chat_app/screens/chat/chat_screen.dart';
 import 'package:chat_app/screens/counter_screen/counter_screen.dart';
@@ -19,7 +20,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  AppController appController = Get.put(AppController());
+  final AppController appController = Get.put(AppController());
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -27,10 +28,8 @@ class MyApp extends StatelessWidget {
           initialBinding: InititleBinding(),
           title: APP_NAME,
           themeMode: appController.themeMode.value,
-          theme: ThemeData(
-            primarySwatch: Colors.purple,
-          ),
-          darkTheme: ThemeData.dark(),
+          theme: lightTheme,
+          darkTheme: dartTheme,
           initialRoute: UserOptionScreen.routeNamed,
           getPages: [
             GetPage(
