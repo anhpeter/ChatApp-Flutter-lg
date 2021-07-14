@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-var lightTheme = ThemeData(
-  primarySwatch: Colors.purple,
-  textTheme: TextTheme().copyWith(
-    subtitle1: TextStyle(
-      fontWeight: FontWeight.bold,
-    ),
-  ),
-);
-var dartTheme = ThemeData.dark();
+ThemeData lightTheme(context) {
+  return ThemeData(
+    primarySwatch: Colors.purple,
+  );
+}
+
+ThemeData dartTheme(context) {
+  return ThemeData.dark().copyWith();
+}

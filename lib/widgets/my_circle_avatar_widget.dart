@@ -10,22 +10,35 @@ class MyCircleAvatarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return imageUrl != null
         ? CircleAvatar(
-            backgroundImage: NetworkImage(imageUrl!),
+            child: ClipOval(
+              child: Image.network(
+                imageUrl!,
+                width: 100,
+                height: 100,
+                fit: BoxFit.cover,
+                errorBuilder: (_, __, ____) {
+                  return buildUsernameText(username!);
+                },
+                //backgroundImage: NetworkImage(imageUrl!),
+              ),
+            ),
           )
         : buildUsernameAvatar(context);
   }
 
   buildUsernameAvatar(context) {
-    String? titleText = username;
-    titleText = titleText != null
-        ? (titleText.length > 2 ? titleText.substring(0, 2).toUpperCase() : "")
-        : "";
     return CircleAvatar(
       backgroundColor: Theme.of(context).primaryColor,
-      child: Text(
-        titleText,
-        style: TextStyle(color: Colors.white),
-      ),
+      child: buildUsernameText(username ?? ""),
+    );
+  }
+
+  Widget buildUsernameText(String username) {
+    String text =
+        username.length > 2 ? username.substring(0, 2).toUpperCase() : "";
+    return Text(
+      text,
+      style: TextStyle(color: Colors.white),
     );
   }
 }

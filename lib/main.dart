@@ -25,11 +25,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() => GetMaterialApp(
+      debugShowCheckedModeBanner: false,
           initialBinding: InititleBinding(),
           title: APP_NAME,
           themeMode: appController.themeMode.value,
-          theme: lightTheme,
-          darkTheme: dartTheme,
+          theme: lightTheme(context),
+          darkTheme: dartTheme(context),
           initialRoute: UserOptionScreen.routeNamed,
           getPages: [
             GetPage(
