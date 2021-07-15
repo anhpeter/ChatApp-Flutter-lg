@@ -4,6 +4,7 @@ import 'package:chat_app/common/Helper.dart';
 
 class User {
   static const ID = '_id';
+  static const UID = 'uid';
   static const USERNAME = 'username';
   static const FULLNAME = 'fullname';
   static const AVATARURL = 'avatar_url';
@@ -15,6 +16,7 @@ class User {
   static const LASTACTIVE = 'last_active';
 
   String id;
+  String uid;
   String username;
   String? fullname;
   String? avatarUrl;
@@ -27,6 +29,7 @@ class User {
 
   User({
     required this.id,
+    required this.uid,
     required this.username,
     required this.password,
     required this.lastActive,
@@ -41,6 +44,7 @@ class User {
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
       id: json[ID],
+      uid: json[UID],
       username: json[USERNAME],
       fullname: json[FULLNAME],
       email: json[EMAIL],
@@ -56,15 +60,16 @@ class User {
   Map<String, dynamic> toJson() {
     return ({
       ID: id,
+      UID: uid,
       USERNAME: username,
       FULLNAME: fullname,
       EMAIL: email,
       PHONE: phone,
       PASSWORD: password,
       AVATARURL: avatarUrl,
-      CREATED: created,
-      MODIFIED: modified,
-      LASTACTIVE: lastActive.millisecondsSinceEpoch,
+      //CREATED:  created?.millisecondsSinceEpoch,
+      //MODIFIED: modified?.millisecondsSinceEpoch,
+      //LASTACTIVE: lastActive.millisecondsSinceEpoch,
     });
   }
 }

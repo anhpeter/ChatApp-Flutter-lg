@@ -129,7 +129,6 @@ class ChatController extends GetxController {
   }
 
   void emitTyping() {
-    print("typing...");
     mySocket.socket.emit(SocketEventNames.typing, {
       'user': authController.user.value!.toJson(),
       'chatId': chat.value!.id
@@ -137,7 +136,6 @@ class ChatController extends GetxController {
   }
 
   void emitStopTyping() {
-    print("stop typing...");
     if (isTypingFlag) {
       if (typingTimer!.isActive) typingTimer!.cancel();
       isTypingFlag = false;

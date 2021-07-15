@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -73,5 +76,14 @@ class Helper {
     else
       result = toActiveTimeFormat(time);
     return "Last seen $result";
+  }
+
+  static String generateMd5(String input) {
+    return md5.convert(utf8.encode(input)).toString();
+  }
+
+  static String? getUsernameFromEmail(email) {
+    var pattern = RegExp(r"^(.+)(?=@)");
+    return pattern.stringMatch(email);
   }
 }

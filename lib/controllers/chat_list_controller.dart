@@ -26,6 +26,7 @@ class ChatListController extends GetxController {
     MyHttp.fetchChatList(id).then((list) {
       chatList.value = list;
     }).catchError((err) {
+      print(err.toString());
       error = Rx<String>(err.toString());
     }).then((value) {
       isLoading.value = false;

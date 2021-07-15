@@ -50,8 +50,8 @@ class MyHttp {
   static Future<Chat> fetchChatById(String id) async {
     Chat chat;
     var queryString = Uri(queryParameters: {'id': id}).query;
-    var response = await http.get(Uri.parse(
-        '$BACKEND_DOMAIN/chat/getChatById?$queryString'));
+    var response = await http
+        .get(Uri.parse('$BACKEND_DOMAIN/chat/getChatById?$queryString'));
     if (response.statusCode == 200) {
       var json = jsonDecode(response.body);
       chat = Chat.fromJson(json['payload']);
@@ -88,5 +88,46 @@ class MyHttp {
       throw Exception('Failed to user list');
     }
     return list;
+  }
+
+  static Future<User> createUser(Map<String, String> userJson) async {
+    var response = await http.post(
+      Uri.parse('$BACKEND_DOMAIN/user/createNewUser'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(userJson),
+    );
+    var resJson = jsonDecode(response.body);
+    User user = User.fromJson(resJson['payload']);
+    return user;
+  }
+
+  static Future<User> getOrCreateUserIfNotExist(Map<String, dynamic> userJson) async {
+    var response = await http.post(
+      Uri.parse('$BACKEND_DOMAIN/user/getOrCreateUserIfNotExist'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(userJson),
+    );
+    var resJson = jsonDecode(response.body);
+    print(resJson);
+    User user = User.fromJson(resJson['payload']);
+    return user;
+  }
+
+  static Future<User> fetchUserByUid(String uid) async {
+    User user;
+    String queryString = Uri(queryParameters: {'uid': uid}).query;
+    var response = await http
+        .get(Uri.parse('$BACKEND_DOMAIN/user/getUserByUid?$queryString'));
+    if (response.statusCode == 200) {
+      var json = jsonDecode(response.body);
+      user = User.fromJson(json['payload']);
+    }else{
+      throw 'failed to load user';
+    }
+    return user;
   }
 }

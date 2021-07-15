@@ -1,8 +1,10 @@
 // @dart=2.9
 import 'package:chat_app/bindings/initial_binding.dart';
+import 'package:chat_app/common/Helper.dart';
 import 'package:chat_app/common/themes/custom_theme.dart';
 import 'package:chat_app/constants/config.dart';
 import 'package:chat_app/screens/auth/auth_screen.dart';
+import 'package:chat_app/screens/auth/widgets/firebase.dart';
 import 'package:chat_app/screens/chat/chat_screen.dart';
 import 'package:chat_app/screens/counter_screen/counter_screen.dart';
 import 'package:chat_app/screens/global_search/global_search_screen.dart';
@@ -15,8 +17,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'controllers/app_controller.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await firebaseInitialize.then((value){
+    print('firebase connected');
+  }).catchError((err){
+    print(err.toString());
+  });
   runApp(MyApp());
 }
 
@@ -26,7 +33,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() => GetMaterialApp(
-      debugShowCheckedModeBanner: false,
+          debugShowCheckedModeBanner: false,
           initialBinding: InititleBinding(),
           title: APP_NAME,
           themeMode: appController.themeMode.value,

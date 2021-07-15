@@ -16,21 +16,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: MainDrawerWidget(),
-      appBar: AppBar(
-        title: Text(APP_NAME),
-        actions: [
-          IconButton(
-              onPressed: () {
-                Helper.showSnackbar(context, "Clock...");
-              },
-              icon: Icon(CLOCK_ICON)),
-          IconButton(
-              onPressed: () {
-                Get.toNamed(GlobalSearchScreen.routeNamed);
-              },
-              icon: Icon(SEARCH_ICON)),
-        ],
-      ),
+      appBar: buildAppBar(context),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Get.toNamed(NewMessageScreen.routeNamed);
@@ -44,6 +30,24 @@ class HomeScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  AppBar buildAppBar(BuildContext context) {
+    return AppBar(
+      title: Text(APP_NAME),
+      actions: [
+        IconButton(
+            onPressed: () {
+              Helper.showSnackbar(context, "Clock...");
+            },
+            icon: Icon(CLOCK_ICON)),
+        IconButton(
+            onPressed: () {
+              Get.toNamed(GlobalSearchScreen.routeNamed);
+            },
+            icon: Icon(SEARCH_ICON)),
+      ],
     );
   }
 }
