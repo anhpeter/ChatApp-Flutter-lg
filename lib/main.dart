@@ -2,6 +2,7 @@
 import 'package:chat_app/bindings/initial_binding.dart';
 import 'package:chat_app/common/themes/custom_theme.dart';
 import 'package:chat_app/constants/config.dart';
+import 'package:chat_app/screens/auth/auth_screen.dart';
 import 'package:chat_app/screens/chat/chat_screen.dart';
 import 'package:chat_app/screens/counter_screen/counter_screen.dart';
 import 'package:chat_app/screens/global_search/global_search_screen.dart';
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
           themeMode: appController.themeMode.value,
           theme: lightTheme(context),
           darkTheme: dartTheme(context),
-          initialRoute: UserOptionScreen.routeNamed,
+          initialRoute: AuthScreen.routeNamed,
           getPages: [
             GetPage(
               name: HomeScreen.routeNamed,
@@ -54,6 +55,10 @@ class MyApp extends StatelessWidget {
             GetPage(
               name: CounterScreen.routeNamed,
               page: () => CounterScreen(),
+            ),
+            GetPage(
+              name: AuthScreen.routeNamed,
+              page: () => AuthScreen(),
             ),
           ],
         ));
